@@ -3,20 +3,16 @@ import numpy as np
 import yfinance as yf
 from datetime import date
 
-# Define a list of stocks to optimize the portfolio for
 stocks = ['CHWY', 'QQQ', 'DIA', 'SPY', 'NDAQ', 'HLT', 'MAR', 'CSCO', 'AXP', 'ACN', 'NVDA', 'TEAM', 'CRM']
 
-# Define the start and end dates for the stock data
 start_date = '2015-01-01'
 end_date = date.today()
 
-# Download the stock data from Yahoo Finance
 data = pd.DataFrame()
 for stock in stocks:
     stock_data = yf.download(stock, start=start_date, end=end_date)
     data[stock] = stock_data['Adj Close']
 
-# Calculate the daily returns for each stock
 returns = np.log(data / data.shift(1))
 
 # Define the number of simulations to run for Monte Carlo simulation - set to 100 for runtime
@@ -25,7 +21,6 @@ num_simulations = 100
 # Define the number of portfolios to generate for each simulation
 num_portfolios = 1000
 
-# Generate random portfolios using Monte Carlo simulation
 results = np.zeros((3+len(stocks), num_portfolios*num_simulations))
 
 iters = 0
@@ -51,7 +46,6 @@ optimal_returns = results[0,max_sharpe_idx]
 optimal_volatility = results[1,max_sharpe_idx]
 optimal_sharpe_ratio = results[2,max_sharpe_idx]
 
-# Print the optimal portfolio weights, returns, and volatility
 print("Optimal Portfolio Weights:")
 for i in range(len(stocks)):
     print(stocks[i], ": ", optimal_weights[i])
