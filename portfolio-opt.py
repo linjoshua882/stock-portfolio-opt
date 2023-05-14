@@ -19,7 +19,7 @@ for stock in stocks:
 # Calculate the daily returns for each stock
 returns = np.log(data / data.shift(1))
 
-# Define the number of simulations to run for Monte Carlo simulation - set to 50 for time
+# Define the number of simulations to run for Monte Carlo simulation - set to 100 for runtime
 num_simulations = 100
 
 # Define the number of portfolios to generate for each simulation
